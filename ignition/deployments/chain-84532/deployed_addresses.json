@@ -1,3 +1,4 @@
 {
-  "ConfidentialityTokenModule#ConfidentialToken": "0xaEA0F75D2Ae09Bb824947b3499fbE2B05FB4230c"
+  "ConfidentialityTokenModule#ConfidentialToken": "0xaEA0F75D2Ae09Bb824947b3499fbE2B05FB4230c",
+  "ConfidentialERC20Module#ConfidentialERC20": "0xed09dda92C6EdFe60dE143A765D7C7B3a6Df8A64"
 }

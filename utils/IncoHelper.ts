@@ -4,19 +4,29 @@ import {
   decodeSecp256k1PublicKey,
   getEciesEncryptor,   // @ts-ignore
 } from "@inco-fhevm/js/lite";
-import { getAddress, hexToBytes } from "viem";
+import { hexToBytes } from "viem";
 import { HexString } from "@inco-fhevm/js/dist/binary";
 
 // @ts-ignore
-import { getReencryptor } from "@inco-fhevm/js/reencryption";
-// @ts-ignore
-import { incoLiteEnvQuerier, incoLiteReencrypt } from "@inco-fhevm/js/lite";
-import { Schema, Binary } from "@inco-fhevm/js";
+import { incoLiteReencryptor } from "@inco-fhevm/js/lite";
 // @ts-ignore
 import { getActiveIncoLiteDeployment, IncoLiteDeployment } from "@inco-fhevm/js/lite";
 
-// ✅ Define the default KMS Endpoint for BaseSepolia
-export const BASE_SEPOLIA_KMS_ENDPOINT = "https://grpc.basesepolia.covalidator.denver.inco.org";
+// Define KMS Endpoints for different networks
+export const BASE_SEPOLIA_KMS_ENDPOINT = "grpc.basesepolia.covalidator.denver.inco.org";
+export const MONAD_KMS_ENDPOINT = "grpc.monadtestnet.covalidator.denver.inco.org";
+
+// Helper function to get KMS endpoint based on network
+export const getKmsEndpoint = (network: string): string => {
+  switch (network.toLowerCase()) {
+    case 'basesepolia':
+      return BASE_SEPOLIA_KMS_ENDPOINT;
+    case 'monadtestnet':
+      return MONAD_KMS_ENDPOINT;
+    default:
+      throw new Error(`Unsupported network: ${network}`);
+  }
+};
 
 // ✅ Define Config Type
 interface EncryptConfig {
@@ -94,7 +104,7 @@ interface ReEncryptParams {
   handle: string;
   publicClient: unknown; // Replace with actual public client type
   incoLiteAddress: HexString;
-  kmsConnectEndpoint?: string; // Optional, defaults to BaseSepolia
+  kmsConnectEndpoint: string;
 }
 
 // ✅ Define `ReencryptResult` Type
@@ -102,7 +112,7 @@ export interface ReencryptResult {
   value: bigint;
 }
 
-// ✅ Updated Re-encrypt Function with Default KMS Endpoint
+// ✅ Updated Re-encrypt Function with new API
 export const reencryptValue = async ({
   chainId,
   contractAddress,
@@ -110,34 +120,22 @@ export const reencryptValue = async ({
   handle,
   publicClient,
   incoLiteAddress,
-  kmsConnectEndpoint = BASE_SEPOLIA_KMS_ENDPOINT, // Default value
+  kmsConnectEndpoint,
 }: ReEncryptParams): Promise<ReencryptResult> => {
-  if (!chainId || !contractAddress || !walletClient || !publicClient || !incoLiteAddress) {
+  if (!chainId || !contractAddress || !walletClient || !publicClient || !incoLiteAddress || !kmsConnectEndpoint) {
     throw new Error("Missing required parameters for re-encryption");
   }
 
   try {
-    // ✅ Ensure the contract address is in checksum format
-    const checksummedAddress = getAddress(contractAddress);
 
-    const reencryptor = await getReencryptor({
+    const reencryptor = await incoLiteReencryptor({
       chainId: BigInt(chainId),
-      contractAddress: checksummedAddress, // Use the fixed address
-      walletClient,
-      reencryptEndpoint: incoLiteReencrypt({
-        kmsConnectRpcEndpointOrClient: kmsConnectEndpoint,
-      }),
-      fheEnvQuerier: incoLiteEnvQuerier({
-        incoLiteAddress,
-        publicClient,
-      }),
+      walletClient: walletClient,
+      kmsConnectRpcEndpointOrClient: kmsConnectEndpoint,
     });
 
-    const decrypted = await reencryptor({
-      handle: {
-        value: Schema.parse(Binary.Bytes32, handle),
-        type: 8, // Default to uint256 type
-      },
+    const decrypted = await reencryptor({ 
+      handle: handle 
     });
 
     return { value: decrypted.value };
@@ -150,3 +148,6 @@ export const reencryptValue = async ({
 export const incoLiteConfig = (network_name: string): IncoLiteDeployment => {
   return getActiveIncoLiteDeployment(network_name);
 };
+
+export const KMS_CONNECT_ENDPOINT_BASE_SEPOLIA =
+"https://grpc.basesepolia.covalidator.denver.inco.org";

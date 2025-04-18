@@ -12,6 +12,7 @@ import contractAbi from "../artifacts/contracts/ConfidentialERC20.sol/Confidenti
 import {
   encryptValue,
   incoLiteConfig,
+  KMS_CONNECT_ENDPOINT_BASE_SEPOLIA,
   reencryptValue,
 } from "../utils/IncoHelper";
 import { HexString } from "@inco-fhevm/js/dist/binary";
@@ -93,6 +94,7 @@ describe("ConfidentialToken Tests", function () {
         handle: eBalanceHandleForOwnerAfterMint.toString(),
         publicClient,
         incoLiteAddress: incoConfig.deployedAtAddress,
+        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
       console.log(
@@ -152,6 +154,7 @@ describe("ConfidentialToken Tests", function () {
         handle: eBalanceHandleForOwnerAfterTransfer.toString(),
         publicClient,
         incoLiteAddress: incoConfig.deployedAtAddress,
+        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
       console.log(
@@ -178,6 +181,7 @@ describe("ConfidentialToken Tests", function () {
         handle: eBalanceHandleForAliceAfterTransfer.toString(),
         publicClient,
         incoLiteAddress: incoConfig.deployedAtAddress,
+        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
       console.log(
@@ -218,6 +222,7 @@ describe("ConfidentialToken Tests", function () {
         handle: eBalanceHandle.toString(),
         publicClient,
         incoLiteAddress: incoConfig.deployedAtAddress,
+        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
       console.log("🎯 Decrypted Balance of Onwer:", decryptedBalance.value);
@@ -256,6 +261,7 @@ describe("ConfidentialToken Tests", function () {
         handle: eBalanceHandleForOwnerAfterMint.toString(),
         publicClient,
         incoLiteAddress: incoConfig.deployedAtAddress,
+        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
       console.log(
@@ -315,6 +321,7 @@ describe("ConfidentialToken Tests", function () {
         handle: eBalanceHandleForOwnerAfterTransfer.toString(),
         publicClient,
         incoLiteAddress: incoConfig.deployedAtAddress,
+        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
       console.log(
@@ -341,6 +348,7 @@ describe("ConfidentialToken Tests", function () {
         handle: eBalanceHandleForAliceAfterTransfer.toString(),
         publicClient,
         incoLiteAddress: incoConfig.deployedAtAddress,
+        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
       console.log(

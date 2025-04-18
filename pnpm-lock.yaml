@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@inco-fhevm/contracts-inco-lite':
-        specifier: 0.1.16
-        version: 0.1.16
+        specifier: 0.1.20
+        version: 0.1.20
       '@nomicfoundation/hardhat-toolbox':
         specifier: ^5.0.0
         version: 5.0.0(60f85da240b121d16089ae8837bce7c6)
@@ -25,8 +25,8 @@ importers:
         version: 16.4.7
     devDependencies:
       '@inco-fhevm/js':
-        specifier: ^0.1.7
-        version: 0.1.7(typescript@5.0.4)(zod@3.24.2)
+        specifier: ^0.1.8-experimental
+        version: 0.1.8-experimental(typescript@5.0.4)(zod@3.24.2)
       '@nomicfoundation/hardhat-ignition':
         specifier: ^0.15.0
         version: 0.15.10(@nomicfoundation/hardhat-verify@2.0.13(hardhat@2.22.19(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.0.4))(typescript@5.0.4)))(hardhat@2.22.19(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.0.4))(typescript@5.0.4))
@@ -89,66 +89,6 @@ packages:
 
   '@adraffy/ens-normalize@1.11.0':
     resolution: {integrity: sha512-/3DDPKHqqIqxUULp8yP4zODUY1i+2xvVWsv8A79xGWdCAG+8sb0hRh0Rk2QyOJUnnbyPUAZYcpBuRe3nS2OIUg==}
-
-  '@buf/cometbft_cometbft.bufbuild_es@2.2.3-20240312114316-c0d3497e35d6.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/cometbft_cometbft.bufbuild_es/-/cometbft_cometbft.bufbuild_es-2.2.3-20240312114316-c0d3497e35d6.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/cosmos_cosmos-proto.bufbuild_es@2.2.3-20211202220400-1935555c206d.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/cosmos_cosmos-proto.bufbuild_es/-/cosmos_cosmos-proto.bufbuild_es-2.2.3-20211202220400-1935555c206d.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/cosmos_cosmos-proto.bufbuild_es@2.2.3-20240418102041-04467658e59e.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/cosmos_cosmos-proto.bufbuild_es/-/cosmos_cosmos-proto.bufbuild_es-2.2.3-20240418102041-04467658e59e.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/cosmos_cosmos-sdk.bufbuild_es@2.2.3-20240220165237-05419252bcc2.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/cosmos_cosmos-sdk.bufbuild_es/-/cosmos_cosmos-sdk.bufbuild_es-2.2.3-20240220165237-05419252bcc2.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/cosmos_gogo-proto.bufbuild_es@2.2.3-20230509103710-5e5b9fdd0180.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/cosmos_gogo-proto.bufbuild_es/-/cosmos_gogo-proto.bufbuild_es-2.2.3-20230509103710-5e5b9fdd0180.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/cosmos_gogo-proto.bufbuild_es@2.2.3-20240130113600-88ef6483f90f.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/cosmos_gogo-proto.bufbuild_es/-/cosmos_gogo-proto.bufbuild_es-2.2.3-20240130113600-88ef6483f90f.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/googleapis_googleapis.bufbuild_es@2.2.3-20240207202044-7e6f6e774e29.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/googleapis_googleapis.bufbuild_es/-/googleapis_googleapis.bufbuild_es-2.2.3-20240207202044-7e6f6e774e29.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/googleapis_googleapis.bufbuild_es@2.2.3-20241219201140-e93e34f48be0.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/googleapis_googleapis.bufbuild_es/-/googleapis_googleapis.bufbuild_es-2.2.3-20241219201140-e93e34f48be0.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/inco_cosmos-proto.bufbuild_es@2.2.3-20250315144634-999af5ccbb8b.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/inco_cosmos-proto.bufbuild_es/-/inco_cosmos-proto.bufbuild_es-2.2.3-20250315144634-999af5ccbb8b.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/protocolbuffers_wellknowntypes.bufbuild_es@2.2.3-20230509212704-657250e6a396.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/protocolbuffers_wellknowntypes.bufbuild_es/-/protocolbuffers_wellknowntypes.bufbuild_es-2.2.3-20230509212704-657250e6a396.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/protocolbuffers_wellknowntypes.bufbuild_es@2.2.3-20241219201141-d4f14e5e0a9c.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/protocolbuffers_wellknowntypes.bufbuild_es/-/protocolbuffers_wellknowntypes.bufbuild_es-2.2.3-20241219201141-d4f14e5e0a9c.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
-
-  '@buf/tendermint_tendermint.bufbuild_es@2.2.3-20231117195010-33ed361a9051.1':
-    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/tendermint_tendermint.bufbuild_es/-/tendermint_tendermint.bufbuild_es-2.2.3-20231117195010-33ed361a9051.1.tgz}
-    peerDependencies:
-      '@bufbuild/protobuf': ^2.2.3
 
   '@bufbuild/protobuf@2.2.3':
     resolution: {integrity: sha512-tFQoXHJdkEOSwj5tRIZSPNUuXK3RaR7T1nUrPgbYX1pUbvqqaaZAsfo+NXBPsz5rZMSKVFrgK1WL8Q/MSLvprg==}
@@ -615,11 +555,11 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  '@inco-fhevm/contracts-inco-lite@0.1.16':
-    resolution: {integrity: sha512-RfewnEf0lEnl0i/MOil/8ltghRmyGEsOysiXpm/S65gPngfBsg8HLHIIsRadjcODY+bFaL9Y/VnNJU+8fZvYVg==, tarball: https://npm.pkg.github.com/download/@inco-fhevm/contracts-inco-lite/0.1.16/6b897d75e08f77c54e2700edbbe9563de34aebb0}
+  '@inco-fhevm/contracts-inco-lite@0.1.20':
+    resolution: {integrity: sha512-qH9+40H8yxE6n9anSXJSIFn84bwE3A4Kh7Zg+Wjxw/S1dRUIm5eKOnlaFsxVNjo4huttGRa/icV9luyq1DcSlw==, tarball: https://npm.pkg.github.com/download/@inco-fhevm/contracts-inco-lite/0.1.20/74145ab5a66ba98bee9ac64cb1eaa330f5eb8613}
 
-  '@inco-fhevm/js@0.1.7':
-    resolution: {integrity: sha512-iJLQShaoVbx5VoYG/5fW3yWBvvB3Uuf97/U38HPsxnT+p9ry4dqLx70CFkvMHZXA1E54UHzf4XelXC3j0tghSQ==, tarball: https://npm.pkg.github.com/download/@inco-fhevm/js/0.1.7/fc6a2d68c33301e9c7134cc352e5631971f2f816}
+  '@inco-fhevm/js@0.1.8-experimental':
+    resolution: {integrity: sha512-KxwCtqmU/cYHog2H0bQsy7SdhzHKcKOaCCZqEifs18/Sy/p4PL+2i+H8Mdim+ti0bONCM3eFQtGWixxnQptSEQ==, tarball: https://npm.pkg.github.com/download/@inco-fhevm/js/0.1.8-experimental/25b6cd93c2355601e2d5f8f5db2facb2ca62db75}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -1703,8 +1643,8 @@ packages:
       debug:
         optional: true
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/6853b9ec7df5dc0c213b05ae67785ad4f4baa0ea:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/6853b9ec7df5dc0c213b05ae67785ad4f4baa0ea}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929}
     version: 1.9.6
 
   form-data@2.5.3:
@@ -2906,68 +2846,6 @@ snapshots:
 
   '@adraffy/ens-normalize@1.11.0': {}
 
-  '@buf/cometbft_cometbft.bufbuild_es@2.2.3-20240312114316-c0d3497e35d6.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@buf/cosmos_gogo-proto.bufbuild_es': 2.2.3-20240130113600-88ef6483f90f.1(@bufbuild/protobuf@2.2.3)
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/cosmos_cosmos-proto.bufbuild_es@2.2.3-20211202220400-1935555c206d.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/cosmos_cosmos-proto.bufbuild_es@2.2.3-20240418102041-04467658e59e.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/cosmos_cosmos-sdk.bufbuild_es@2.2.3-20240220165237-05419252bcc2.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@buf/cosmos_cosmos-proto.bufbuild_es': 2.2.3-20211202220400-1935555c206d.1(@bufbuild/protobuf@2.2.3)
-      '@buf/cosmos_gogo-proto.bufbuild_es': 2.2.3-20240130113600-88ef6483f90f.1(@bufbuild/protobuf@2.2.3)
-      '@buf/googleapis_googleapis.bufbuild_es': 2.2.3-20240207202044-7e6f6e774e29.1(@bufbuild/protobuf@2.2.3)
-      '@buf/protocolbuffers_wellknowntypes.bufbuild_es': 2.2.3-20230509212704-657250e6a396.1(@bufbuild/protobuf@2.2.3)
-      '@buf/tendermint_tendermint.bufbuild_es': 2.2.3-20231117195010-33ed361a9051.1(@bufbuild/protobuf@2.2.3)
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/cosmos_gogo-proto.bufbuild_es@2.2.3-20230509103710-5e5b9fdd0180.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/cosmos_gogo-proto.bufbuild_es@2.2.3-20240130113600-88ef6483f90f.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/googleapis_googleapis.bufbuild_es@2.2.3-20240207202044-7e6f6e774e29.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/googleapis_googleapis.bufbuild_es@2.2.3-20241219201140-e93e34f48be0.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/inco_cosmos-proto.bufbuild_es@2.2.3-20250315144634-999af5ccbb8b.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@buf/cometbft_cometbft.bufbuild_es': 2.2.3-20240312114316-c0d3497e35d6.1(@bufbuild/protobuf@2.2.3)
-      '@buf/cosmos_cosmos-proto.bufbuild_es': 2.2.3-20240418102041-04467658e59e.1(@bufbuild/protobuf@2.2.3)
-      '@buf/cosmos_cosmos-sdk.bufbuild_es': 2.2.3-20240220165237-05419252bcc2.1(@bufbuild/protobuf@2.2.3)
-      '@buf/cosmos_gogo-proto.bufbuild_es': 2.2.3-20240130113600-88ef6483f90f.1(@bufbuild/protobuf@2.2.3)
-      '@buf/googleapis_googleapis.bufbuild_es': 2.2.3-20241219201140-e93e34f48be0.1(@bufbuild/protobuf@2.2.3)
-      '@buf/protocolbuffers_wellknowntypes.bufbuild_es': 2.2.3-20241219201141-d4f14e5e0a9c.1(@bufbuild/protobuf@2.2.3)
-      '@buf/tendermint_tendermint.bufbuild_es': 2.2.3-20231117195010-33ed361a9051.1(@bufbuild/protobuf@2.2.3)
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/protocolbuffers_wellknowntypes.bufbuild_es@2.2.3-20230509212704-657250e6a396.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/protocolbuffers_wellknowntypes.bufbuild_es@2.2.3-20241219201141-d4f14e5e0a9c.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@bufbuild/protobuf': 2.2.3
-
-  '@buf/tendermint_tendermint.bufbuild_es@2.2.3-20231117195010-33ed361a9051.1(@bufbuild/protobuf@2.2.3)':
-    dependencies:
-      '@buf/cosmos_gogo-proto.bufbuild_es': 2.2.3-20230509103710-5e5b9fdd0180.1(@bufbuild/protobuf@2.2.3)
-      '@bufbuild/protobuf': 2.2.3
-
   '@bufbuild/protobuf@2.2.3': {}
 
   '@confio/ics23@0.6.8':
@@ -3513,17 +3391,16 @@ snapshots:
       protobufjs: 7.4.0
       yargs: 17.7.2
 
-  '@inco-fhevm/contracts-inco-lite@0.1.16':
+  '@inco-fhevm/contracts-inco-lite@0.1.20':
     dependencies:
       '@openzeppelin/contracts': 5.2.0
       '@openzeppelin/contracts-upgradeable': 5.2.0(@openzeppelin/contracts@5.2.0)
       ds-test: https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0
-      forge-std: https://codeload.github.com/foundry-rs/forge-std/tar.gz/6853b9ec7df5dc0c213b05ae67785ad4f4baa0ea
+      forge-std: https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929
       tsx: 4.19.3
 
-  '@inco-fhevm/js@0.1.7(typescript@5.0.4)(zod@3.24.2)':
+  '@inco-fhevm/js@0.1.8-experimental(typescript@5.0.4)(zod@3.24.2)':
     dependencies:
-      '@buf/inco_cosmos-proto.bufbuild_es': 2.2.3-20250315144634-999af5ccbb8b.1(@bufbuild/protobuf@2.2.3)
       '@bufbuild/protobuf': 2.2.3
       '@connectrpc/connect': 2.0.2(@bufbuild/protobuf@2.2.3)
       '@connectrpc/connect-node': 2.0.2(@bufbuild/protobuf@2.2.3)(@connectrpc/connect@2.0.2(@bufbuild/protobuf@2.2.3))
@@ -4804,7 +4681,7 @@ snapshots:
     optionalDependencies:
       debug: 4.4.0(supports-color@8.1.1)
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/6853b9ec7df5dc0c213b05ae67785ad4f4baa0ea: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929: {}
 
   form-data@2.5.3:
     dependencies:

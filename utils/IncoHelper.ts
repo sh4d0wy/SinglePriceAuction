@@ -3,26 +3,26 @@ import {
   generateSecp256k1Keypair,
   decodeSecp256k1PublicKey,
   getEciesEncryptor,   // @ts-ignore
-} from "@inco-fhevm/js/lite";
+} from "@inco/js/lite";
 import { hexToBytes } from "viem";
-import { HexString } from "@inco-fhevm/js/dist/binary";
+import { HexString } from "@inco/js/dist/binary";
 
 // @ts-ignore
-import { incoLiteReencryptor } from "@inco-fhevm/js/lite";
+import { incoLiteReencryptor } from "@inco/js/lite";
 // @ts-ignore
-import { getActiveIncoLiteDeployment, IncoLiteDeployment } from "@inco-fhevm/js/lite";
+import { getActiveIncoLiteDeployment, IncoLiteDeployment } from "@inco/js/lite";
 
 // Define KMS Endpoints for different networks
-export const BASE_SEPOLIA_KMS_ENDPOINT = "grpc.basesepolia.covalidator.denver.inco.org";
-export const MONAD_KMS_ENDPOINT = "grpc.monadtestnet.covalidator.denver.inco.org";
+export const KMS_CONNECT_ENDPOINT_BASE_SEPOLIA = "grpc.basesepolia.covalidator.denver.inco.org";
+export const KMS_CONNECT_ENDPOINT_MONAD_TESTNET = "grpc.monadtestnet.covalidator.denver.inco.org";
 
 // Helper function to get KMS endpoint based on network
 export const getKmsEndpoint = (network: string): string => {
   switch (network.toLowerCase()) {
     case 'basesepolia':
-      return BASE_SEPOLIA_KMS_ENDPOINT;
+      return KMS_CONNECT_ENDPOINT_BASE_SEPOLIA;
     case 'monadtestnet':
-      return MONAD_KMS_ENDPOINT;
+      return KMS_CONNECT_ENDPOINT_MONAD_TESTNET;
     default:
       throw new Error(`Unsupported network: ${network}`);
   }
@@ -32,7 +32,7 @@ export const getKmsEndpoint = (network: string): string => {
 interface EncryptConfig {
   chainId: number;
   eciesPublicKey: HexString;
-  deployedAtAddress: HexString;
+  executorAddress: HexString;
 }
 
 // ✅ Define Encrypt Function Input Type
@@ -77,7 +77,7 @@ export const encryptValue = async ({
     },
     context: {
       hostChainId: BigInt(config.chainId),
-      aclAddress: config.deployedAtAddress,
+      aclAddress: config.executorAddress,
       userAddress: address,
       contractAddress: contractAddress,
     },
@@ -86,10 +86,11 @@ export const encryptValue = async ({
   const ephemeralKeypair = await generateSecp256k1Keypair();
   const eciesPubKey = decodeSecp256k1PublicKey(hexToBytes(config.eciesPublicKey));
   const encryptor = getEciesEncryptor({
-    scheme: 1, // encryptionSchemes.ecies
+    scheme: 1, 
     pubKeyA: eciesPubKey,
     privKeyB: ephemeralKeypair,
   });
+  console.log('acl address', plaintextWithContext.context.aclAddress);
 
   const inputCt: InputCt = await encryptor(plaintextWithContext);
 
@@ -99,11 +100,8 @@ export const encryptValue = async ({
 // ✅ Define Re-encrypt Function Input Type
 interface ReEncryptParams {
   chainId: number;
-  contractAddress: HexString;
-  walletClient: unknown; // Replace with actual wallet client type if available
+  walletClient: unknown; 
   handle: string;
-  publicClient: unknown; // Replace with actual public client type
-  incoLiteAddress: HexString;
   kmsConnectEndpoint: string;
 }
 
@@ -115,17 +113,13 @@ export interface ReencryptResult {
 // ✅ Updated Re-encrypt Function with new API
 export const reencryptValue = async ({
   chainId,
-  contractAddress,
   walletClient,
   handle,
-  publicClient,
-  incoLiteAddress,
   kmsConnectEndpoint,
 }: ReEncryptParams): Promise<ReencryptResult> => {
-  if (!chainId || !contractAddress || !walletClient || !publicClient || !incoLiteAddress || !kmsConnectEndpoint) {
-    throw new Error("Missing required parameters for re-encryption");
+  if(!chainId || !walletClient || !handle || !kmsConnectEndpoint) {
+    throw new Error("Missing required parameters");
   }
-
   try {
 
     const reencryptor = await incoLiteReencryptor({
@@ -148,6 +142,3 @@ export const reencryptValue = async ({
 export const incoLiteConfig = (network_name: string): IncoLiteDeployment => {
   return getActiveIncoLiteDeployment(network_name);
 };
-
-export const KMS_CONNECT_ENDPOINT_BASE_SEPOLIA =
-"https://grpc.basesepolia.covalidator.denver.inco.org";

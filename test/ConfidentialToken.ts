@@ -15,7 +15,7 @@ import {
   KMS_CONNECT_ENDPOINT_BASE_SEPOLIA,
   reencryptValue,
 } from "../utils/IncoHelper";
-import { HexString } from "@inco-fhevm/js/dist/binary";
+import { HexString } from "@inco/js/dist/binary";
 
 describe("ConfidentialToken Tests", function () {
   let confidentialToken: any;
@@ -89,11 +89,8 @@ describe("ConfidentialToken Tests", function () {
 
       const decryptedBalanceForOwnerAfterMint = await reencryptValue({
         chainId: 84532,
-        contractAddress: getAddress(contractAddress),
         walletClient: wallet,
         handle: eBalanceHandleForOwnerAfterMint.toString(),
-        publicClient,
-        incoLiteAddress: incoConfig.deployedAtAddress,
         kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
@@ -149,11 +146,8 @@ describe("ConfidentialToken Tests", function () {
 
       const decryptedBalanceForOwnerAfterTransfer = await reencryptValue({
         chainId: 84532,
-        contractAddress: getAddress(contractAddress),
         walletClient: wallet,
         handle: eBalanceHandleForOwnerAfterTransfer.toString(),
-        publicClient,
-        incoLiteAddress: incoConfig.deployedAtAddress,
         kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
@@ -176,11 +170,8 @@ describe("ConfidentialToken Tests", function () {
 
       const decryptedBalanceForAliceAfterTransfer = await reencryptValue({
         chainId: 84532,
-        contractAddress: getAddress(contractAddress),
         walletClient: namedWallets.alice,
         handle: eBalanceHandleForAliceAfterTransfer.toString(),
-        publicClient,
-        incoLiteAddress: incoConfig.deployedAtAddress,
         kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
@@ -217,11 +208,8 @@ describe("ConfidentialToken Tests", function () {
 
       const decryptedBalance = await reencryptValue({
         chainId: 84532,
-        contractAddress: getAddress(contractAddress),
         walletClient: wallet,
         handle: eBalanceHandle.toString(),
-        publicClient,
-        incoLiteAddress: incoConfig.deployedAtAddress,
         kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
@@ -256,11 +244,8 @@ describe("ConfidentialToken Tests", function () {
 
       const decryptedBalanceForOwnerAfterMint = await reencryptValue({
         chainId: 84532,
-        contractAddress: getAddress(contractAddress),
         walletClient: wallet,
         handle: eBalanceHandleForOwnerAfterMint.toString(),
-        publicClient,
-        incoLiteAddress: incoConfig.deployedAtAddress,
         kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
@@ -316,11 +301,8 @@ describe("ConfidentialToken Tests", function () {
 
       const decryptedBalanceForOwnerAfterTransfer = await reencryptValue({
         chainId: 84532,
-        contractAddress: getAddress(contractAddress),
         walletClient: wallet,
         handle: eBalanceHandleForOwnerAfterTransfer.toString(),
-        publicClient,
-        incoLiteAddress: incoConfig.deployedAtAddress,
         kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 
@@ -343,11 +325,8 @@ describe("ConfidentialToken Tests", function () {
 
       const decryptedBalanceForAliceAfterTransfer = await reencryptValue({
         chainId: 84532,
-        contractAddress: getAddress(contractAddress),
         walletClient: namedWallets.alice,
         handle: eBalanceHandleForAliceAfterTransfer.toString(),
-        publicClient,
-        incoLiteAddress: incoConfig.deployedAtAddress,
         kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
       });
 

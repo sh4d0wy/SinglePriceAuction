@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@inco-fhevm/contracts-inco-lite':
-        specifier: 0.1.20
-        version: 0.1.20
+        specifier: 0.1.22
+        version: 0.1.22
       '@nomicfoundation/hardhat-toolbox':
         specifier: ^5.0.0
         version: 5.0.0(60f85da240b121d16089ae8837bce7c6)
@@ -24,9 +24,9 @@ importers:
         specifier: ^16.4.7
         version: 16.4.7
     devDependencies:
-      '@inco-fhevm/js':
-        specifier: ^0.1.8-experimental
-        version: 0.1.8-experimental(typescript@5.0.4)(zod@3.24.2)
+      '@inco/js':
+        specifier: ^0.1.11
+        version: 0.1.14(typescript@5.0.4)(zod@3.24.2)
       '@nomicfoundation/hardhat-ignition':
         specifier: ^0.15.0
         version: 0.15.10(@nomicfoundation/hardhat-verify@2.0.13(hardhat@2.22.19(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.0.4))(typescript@5.0.4)))(hardhat@2.22.19(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.0.4))(typescript@5.0.4))
@@ -555,11 +555,11 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  '@inco-fhevm/contracts-inco-lite@0.1.20':
-    resolution: {integrity: sha512-qH9+40H8yxE6n9anSXJSIFn84bwE3A4Kh7Zg+Wjxw/S1dRUIm5eKOnlaFsxVNjo4huttGRa/icV9luyq1DcSlw==, tarball: https://npm.pkg.github.com/download/@inco-fhevm/contracts-inco-lite/0.1.20/74145ab5a66ba98bee9ac64cb1eaa330f5eb8613}
+  '@inco-fhevm/contracts-inco-lite@0.1.22':
+    resolution: {integrity: sha512-zrGOQpJcMqaULb2yDxTi56qBhgxOyPFUzX5mOb6JLmkJKN8JKDoQYeEW3cIjEa4BMMWARdpnPMjWjJQ37oqTew==, tarball: https://npm.pkg.github.com/download/@inco-fhevm/contracts-inco-lite/0.1.22/5120db993731b349141a395c4d8dbb9afba2be89}
 
-  '@inco-fhevm/js@0.1.8-experimental':
-    resolution: {integrity: sha512-KxwCtqmU/cYHog2H0bQsy7SdhzHKcKOaCCZqEifs18/Sy/p4PL+2i+H8Mdim+ti0bONCM3eFQtGWixxnQptSEQ==, tarball: https://npm.pkg.github.com/download/@inco-fhevm/js/0.1.8-experimental/25b6cd93c2355601e2d5f8f5db2facb2ca62db75}
+  '@inco/js@0.1.14':
+    resolution: {integrity: sha512-gHqArbh9ppCpsFnbaAEEusBvuUiEhhULdCRzKIExhgfaJxxs1aqxZuX8H+Qz/et4SRuEoz5Koil4AvD6bv3OlQ==}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -2125,12 +2125,6 @@ packages:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
 
-  node-tfhe@0.10.0:
-    resolution: {integrity: sha512-XDZnj69hideRx4LtYQP8/oiCkB0s0nCqO1l+eBCYSlyqyUCRTHlWMWSDnNIeaDdgNc1j7UjuynFnbtWUjLJSGw==}
-
-  node-tkms@0.9.0:
-    resolution: {integrity: sha512-ulhV23okeMW3WYnxzhvf9u87tcXqe64JqUFlvdgu64uKteG8re+zwOjzkOdxvF0xSWQbMtEU96dvcrvQM10PEg==}
-
   nofilter@3.1.0:
     resolution: {integrity: sha512-l2NNj07e9afPnhAhvgVrCD/oy2Ai1yfLpuo3EpiO1jFTsB4sFz6oIfAfSZyQzVpkZQ9xS8ZS5g1jCBgq4Hwo0g==}
     engines: {node: '>=12.19'}
@@ -3391,7 +3385,7 @@ snapshots:
       protobufjs: 7.4.0
       yargs: 17.7.2
 
-  '@inco-fhevm/contracts-inco-lite@0.1.20':
+  '@inco-fhevm/contracts-inco-lite@0.1.22':
     dependencies:
       '@openzeppelin/contracts': 5.2.0
       '@openzeppelin/contracts-upgradeable': 5.2.0(@openzeppelin/contracts@5.2.0)
@@ -3399,7 +3393,7 @@ snapshots:
       forge-std: https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929
       tsx: 4.19.3
 
-  '@inco-fhevm/js@0.1.8-experimental(typescript@5.0.4)(zod@3.24.2)':
+  '@inco/js@0.1.14(typescript@5.0.4)(zod@3.24.2)':
     dependencies:
       '@bufbuild/protobuf': 2.2.3
       '@connectrpc/connect': 2.0.2(@bufbuild/protobuf@2.2.3)
@@ -3414,8 +3408,6 @@ snapshots:
       bincode-ts: 0.1.1
       ecies-geth: 1.7.5
       effect: 3.13.11
-      node-tfhe: 0.10.0
-      node-tkms: 0.9.0
       sha3: 2.1.4
       viem: 2.23.11(typescript@5.0.4)(zod@3.24.2)
     transitivePeerDependencies:
@@ -5227,10 +5219,6 @@ snapshots:
       lodash: 4.17.21
 
   node-gyp-build@4.8.4: {}
-
-  node-tfhe@0.10.0: {}
-
-  node-tkms@0.9.0: {}
 
   nofilter@3.1.0: {}
 

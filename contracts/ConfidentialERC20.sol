@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.24;
 
-import "@inco-fhevm/contracts-inco-lite/src/IncoLib.sol";
+import "@inco/lightning/src/Lib.sol";
 import "@openzeppelin/contracts/access/Ownable2Step.sol";
 
 contract ConfidentialERC20 is Ownable2Step {

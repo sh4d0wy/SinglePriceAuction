@@ -10,10 +10,10 @@ import { HexString } from "@inco/js/dist/binary";
 // @ts-ignore
 import { incoLiteReencryptor } from "@inco/js/lite";
 // @ts-ignore
-import { getActiveIncoLiteDeployment, IncoLiteDeployment } from "@inco/js/lite";
+import { getActiveLightningDeployment, IncoLiteDeployment } from "@inco/js/lite";
 
 // Define KMS Endpoints for different networks
-export const KMS_CONNECT_ENDPOINT_BASE_SEPOLIA = "grpc.basesepolia.covalidator.denver.inco.org";
+export const KMS_CONNECT_ENDPOINT_BASE_SEPOLIA = "https://grpc.base-sepolia.lightning.testnet.inco.org/";
 export const KMS_CONNECT_ENDPOINT_MONAD_TESTNET = "grpc.monadtestnet.covalidator.denver.inco.org";
 
 // Helper function to get KMS endpoint based on network
@@ -140,5 +140,5 @@ export const reencryptValue = async ({
 
 // ✅ Define `incoLiteConfig` Function with Proper Type Return
 export const incoLiteConfig = (network_name: string): IncoLiteDeployment => {
-  return getActiveIncoLiteDeployment(network_name);
+  return getActiveLightningDeployment(network_name);
 };

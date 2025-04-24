@@ -302,7 +302,7 @@ describe("ConfidentialToken Tests", function () {
           args: [namedWallets.alice.account.address],
         })) as HexString;
 
-      const decryptedBalanceForAliceAfterTransfer = await reEncryptorForMainWallet({
+      const decryptedBalanceForAliceAfterTransfer = await reEncryptorForAliceWallet({
         handle: eBalanceHandleForAliceAfterTransfer.toString()
       });
 

@@ -265,7 +265,7 @@ describe("ConfidentialToken Tests", function () {
         functionName: "transfer",
         args: [
           namedWallets.alice.account.address,
-          encryptedCipherText.inputCt.ciphertext.value,
+          encryptedCipherText,
         ],
       });
       await publicClient.waitForTransactionReceipt({ hash: txHashForTransfer });

@@ -38,4 +38,3 @@ pnpm hardhat test --network baseSepolia
 - End-to-end testing of encryption, reencryption  and decryption functionalities.
 - Hardhat-based test framework.
 - Supports reencryption and ciphertext validation.
-# inco-lite-template

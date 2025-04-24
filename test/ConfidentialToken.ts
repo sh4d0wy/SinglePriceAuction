@@ -9,21 +9,23 @@ import {
   parseAbiItem,
 } from "viem";
 import contractAbi from "../artifacts/contracts/ConfidentialERC20.sol/ConfidentialERC20.json";
-import {
-  encryptValue,
-  incoLiteConfig,
-  KMS_CONNECT_ENDPOINT_BASE_SEPOLIA,
-  reencryptValue,
-} from "../utils/IncoHelper";
 import { HexString } from "@inco/js/dist/binary";
-
+// @ts-ignore
+import { Lightning } from '@inco/js/lite';
 describe("ConfidentialToken Tests", function () {
   let confidentialToken: any;
   let contractAddress: Address;
   let incoConfig: any;
+  let reEncryptorForMainWallet: any;
+  let reEncryptorForAliceWallet: any;
+  let reEncryptorForBobWallet: any;
 
   beforeEach(async function () {
-    incoConfig = incoLiteConfig("baseSepolia");
+    incoConfig = Lightning.latest('testnet', 84532); // Connect to Inco's latest public testnet
+     reEncryptorForMainWallet = await incoConfig.getReencryptor(wallet);
+     reEncryptorForAliceWallet = await incoConfig.getReencryptor(namedWallets.alice);
+     reEncryptorForBobWallet = await incoConfig.getReencryptor(namedWallets.bob);
+
 
     const txHash = await wallet.deployContract({
       abi: contractAbi.abi,
@@ -87,12 +89,7 @@ describe("ConfidentialToken Tests", function () {
         args: [wallet.account.address],
       })) as HexString;
 
-      const decryptedBalanceForOwnerAfterMint = await reencryptValue({
-        chainId: 84532,
-        walletClient: wallet,
-        handle: eBalanceHandleForOwnerAfterMint.toString(),
-        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
-      });
+      const decryptedBalanceForOwnerAfterMint =  await reEncryptorForMainWallet({ handle: eBalanceHandleForOwnerAfterMint.toString() });
 
       console.log(
         `🎯 Decrypted Owner Balance: ${decryptedBalanceForOwnerAfterMint.value} cUSDC`
@@ -104,11 +101,9 @@ describe("ConfidentialToken Tests", function () {
       // Encrypt 1000 cUSDC for Transfer
       const plainTextAmountToBeSent = parseEther("1000");
       console.log("\n------ 🔄 Encrypting Transfer Amount (1000 cUSDC) ------");
-      const encryptedCipherText = await encryptValue({
-        value: plainTextAmountToBeSent,
-        address: wallet.account.address,
-        config: incoConfig,
-        contractAddress: contractAddress,
+      const encryptedCipherText = await incoConfig.encrypt(plainTextAmountToBeSent,{
+        accountAddress: wallet.account.address,
+        dappAddress: contractAddress
       });
       console.log("✅ Encryption successful.");
 
@@ -128,7 +123,7 @@ describe("ConfidentialToken Tests", function () {
         functionName: "transfer",
         args: [
           namedWallets.alice.account.address,
-          encryptedCipherText.inputCt.ciphertext.value,
+          encryptedCipherText,
         ],
       });
       await publicClient.waitForTransactionReceipt({ hash: txHashForTransfer });
@@ -144,11 +139,8 @@ describe("ConfidentialToken Tests", function () {
           args: [wallet.account.address],
         })) as HexString;
 
-      const decryptedBalanceForOwnerAfterTransfer = await reencryptValue({
-        chainId: 84532,
-        walletClient: wallet,
-        handle: eBalanceHandleForOwnerAfterTransfer.toString(),
-        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
+      const decryptedBalanceForOwnerAfterTransfer = await reEncryptorForMainWallet({
+        handle: eBalanceHandleForOwnerAfterTransfer.toString()
       });
 
       console.log(
@@ -167,12 +159,8 @@ describe("ConfidentialToken Tests", function () {
           functionName: "balanceOf",
           args: [namedWallets.alice.account.address],
         })) as HexString;
-
-      const decryptedBalanceForAliceAfterTransfer = await reencryptValue({
-        chainId: 84532,
-        walletClient: namedWallets.alice,
-        handle: eBalanceHandleForAliceAfterTransfer.toString(),
-        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
+      const decryptedBalanceForAliceAfterTransfer = await reEncryptorForAliceWallet({
+        handle: eBalanceHandleForAliceAfterTransfer.toString()
       });
 
       console.log(
@@ -206,11 +194,10 @@ describe("ConfidentialToken Tests", function () {
         args: [wallet.account.address],
       })) as HexString;
 
-      const decryptedBalance = await reencryptValue({
-        chainId: 84532,
-        walletClient: wallet,
-        handle: eBalanceHandle.toString(),
-        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
+      console.log("🔑 Reencrypting the balance handle...");
+
+      const decryptedBalance = await reEncryptorForMainWallet({
+        handle: eBalanceHandle.toString()
       });
 
       console.log("🎯 Decrypted Balance of Onwer:", decryptedBalance.value);
@@ -242,11 +229,8 @@ describe("ConfidentialToken Tests", function () {
         args: [wallet.account.address],
       })) as HexString;
 
-      const decryptedBalanceForOwnerAfterMint = await reencryptValue({
-        chainId: 84532,
-        walletClient: wallet,
-        handle: eBalanceHandleForOwnerAfterMint.toString(),
-        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
+      const decryptedBalanceForOwnerAfterMint = await reEncryptorForMainWallet({
+        handle: eBalanceHandleForOwnerAfterMint.toString()
       });
 
       console.log(
@@ -259,11 +243,9 @@ describe("ConfidentialToken Tests", function () {
       // Encrypt 1000 cUSDC for Transfer
       const plainTextAmountToBeSent = parseEther("1000");
       console.log("\n------ 🔄 Encrypting Transfer Amount (1000 cUSDC) ------");
-      const encryptedCipherText = await encryptValue({
-        value: plainTextAmountToBeSent,
-        address: wallet.account.address,
-        config: incoConfig,
-        contractAddress: contractAddress,
+      const encryptedCipherText = await incoConfig.encrypt(plainTextAmountToBeSent,{
+        accountAddress: wallet.account.address,
+        dappAddress: contractAddress,
       });
       console.log("✅ Encryption successful.");
 
@@ -299,11 +281,8 @@ describe("ConfidentialToken Tests", function () {
           args: [wallet.account.address],
         })) as HexString;
 
-      const decryptedBalanceForOwnerAfterTransfer = await reencryptValue({
-        chainId: 84532,
-        walletClient: wallet,
-        handle: eBalanceHandleForOwnerAfterTransfer.toString(),
-        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
+      const decryptedBalanceForOwnerAfterTransfer = await reEncryptorForMainWallet({
+        handle: eBalanceHandleForOwnerAfterTransfer.toString()
       });
 
       console.log(
@@ -323,11 +302,8 @@ describe("ConfidentialToken Tests", function () {
           args: [namedWallets.alice.account.address],
         })) as HexString;
 
-      const decryptedBalanceForAliceAfterTransfer = await reencryptValue({
-        chainId: 84532,
-        walletClient: namedWallets.alice,
-        handle: eBalanceHandleForAliceAfterTransfer.toString(),
-        kmsConnectEndpoint: KMS_CONNECT_ENDPOINT_BASE_SEPOLIA
+      const decryptedBalanceForAliceAfterTransfer = await reEncryptorForMainWallet({
+        handle: eBalanceHandleForAliceAfterTransfer.toString()
       });
 
       console.log(
@@ -395,4 +371,6 @@ describe("ConfidentialToken Tests", function () {
       expect(decryptedBalanceForAlice).to.equal(parseEther("1000")); // ✅ Assertion
     });
   });
+
+
 });

@@ -4,7 +4,9 @@ import * as dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
+const PRIVATE_KEY = process.env.PRIVATE_KEY_BASE_SEPOLIA || "";
+const PRIVATE_KEY_ANVIL = process.env.PRIVATE_KEY_ANVIL || "";
+
 const BASE_SEPOLIA_RPC_URL = process.env.BASE_SEPOLIA_RPC_URL || "";
 
 const config: HardhatUserConfig = {
@@ -24,7 +26,7 @@ const config: HardhatUserConfig = {
     // Make sure to run `docker compose up` to start the local node and covalidator
     anvil: {
       url: "http://localhost:8545",
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
+      accounts: PRIVATE_KEY_ANVIL ? [PRIVATE_KEY_ANVIL] : [],
       chainId:31337
     },
     baseSepolia: {

@@ -6,12 +6,14 @@ import "@inco/lightning/src/Lib.sol";
 import "@openzeppelin/contracts/access/Ownable2Step.sol";
 
 contract ConfidentialERC20 is Ownable2Step {
-    
     // Events for Transfer, Approval, Mint, and Decryption
     event Transfer(address indexed from, address indexed to);
     event Approval(address indexed owner, address indexed spender);
     event Mint(address indexed to, uint256 amount);
     event UserBalanceDecrypted(address indexed user, uint256 decryptedAmount);
+    
+    using e for uint256;
+    using e for bool;
 
     uint256 public _totalSupply;
     string public _name;
@@ -30,7 +32,7 @@ contract ConfidentialERC20 is Ownable2Step {
     }
 
     // Mint function to create tokens and add to the owner's balance
-    function mint(uint256 mintedAmount) public virtual onlyOwner {
+    function mint(uint256 mintedAmount) public onlyOwner {
         balances[owner()] = e.add(
             balances[owner()],
             e.asEuint256(mintedAmount)
@@ -44,7 +46,7 @@ contract ConfidentialERC20 is Ownable2Step {
     // Overloaded _mint function to allow encrypted token minting
     function _mint(
         bytes calldata encryptedAmount
-    ) public virtual /*onlyOwner*/ {
+    ) internal    /*onlyOwner*/ {
         balances[msg.sender] = e.add(
             balances[msg.sender],
             e.newEuint256(encryptedAmount, msg.sender)
@@ -58,7 +60,7 @@ contract ConfidentialERC20 is Ownable2Step {
     function transfer(
         address to,
         bytes calldata encryptedAmount
-    ) public virtual returns (bool) {
+    ) public returns (bool) {
         transfer(to, e.newEuint256(encryptedAmount, msg.sender));
         return true;
     }
@@ -67,14 +69,15 @@ contract ConfidentialERC20 is Ownable2Step {
     function transfer(
         address to,
         euint256 amount
-    ) public virtual returns (bool) {
+    ) public  returns (bool) {
+        e.allow(amount, address(this));
         ebool canTransfer = e.ge(balances[msg.sender], amount);
         _transfer(msg.sender, to, amount, canTransfer);
         return true;
     }
 
     // Retrieves the balance handle of a specified wallet
-    function balanceOf(address wallet) public view virtual returns (euint256) {
+    function balanceOf(address wallet) public view returns (euint256) {
         return balances[wallet];
     }
 
@@ -82,7 +85,7 @@ contract ConfidentialERC20 is Ownable2Step {
     function approve(
         address spender,
         bytes calldata encryptedAmount
-    ) public virtual returns (bool) {
+    ) public returns (bool) {
         approve(spender, e.newEuint256(encryptedAmount, msg.sender));
         return true;
     }
@@ -91,7 +94,7 @@ contract ConfidentialERC20 is Ownable2Step {
     function approve(
         address spender,
         euint256 amount
-    ) public virtual returns (bool) {
+    ) public returns (bool) {
         _approve(msg.sender, spender, amount);
         emit Approval(msg.sender, spender);
         return true;
@@ -102,7 +105,7 @@ contract ConfidentialERC20 is Ownable2Step {
         address owner,
         address spender,
         euint256 amount
-    ) internal virtual {
+    ) internal{
         allowances[owner][spender] = amount;
         e.allow(amount, address(this));
         e.allow(amount, owner);
@@ -113,15 +116,15 @@ contract ConfidentialERC20 is Ownable2Step {
     function allowance(
         address owner,
         address spender
-    ) public view virtual returns (euint256) {
+    ) public view returns (euint256) {
         return _allowance(owner, spender);
     }
-    
+
     // Internal function to retrieve an allowance handle
     function _allowance(
         address owner,
         address spender
-    ) internal view virtual returns (euint256) {
+    ) internal view returns (euint256) {
         return allowances[owner][spender];
     }
 
@@ -130,7 +133,7 @@ contract ConfidentialERC20 is Ownable2Step {
         address from,
         address to,
         bytes calldata encryptedAmount
-    ) public virtual returns (bool) {
+    ) public returns (bool) {
         transferFrom(from, to, e.newEuint256(encryptedAmount, msg.sender));
         return true;
     }
@@ -140,7 +143,7 @@ contract ConfidentialERC20 is Ownable2Step {
         address from,
         address to,
         euint256 amount
-    ) public virtual returns (bool) {
+    ) public returns (bool) {
         ebool isTransferable = _updateAllowance(from, msg.sender, amount);
         _transfer(from, to, amount, isTransferable);
         return true;
@@ -151,15 +154,19 @@ contract ConfidentialERC20 is Ownable2Step {
         address owner,
         address spender,
         euint256 amount
-    ) internal virtual returns (ebool) {
+    ) internal returns (ebool) {
         euint256 currentAllowance = _allowance(owner, spender);
+        e.allow(currentAllowance, address(this));
         ebool allowedTransfer = e.ge(currentAllowance, amount);
+        e.allow(allowedTransfer, address(this));
         ebool canTransfer = e.ge(balances[owner], amount);
+        e.allow(canTransfer, address(this));
         ebool isTransferable = e.select(
             canTransfer,
             allowedTransfer,
             e.asEbool(false)
         );
+        e.allow(isTransferable, address(this));
         _approve(
             owner,
             spender,
@@ -178,22 +185,19 @@ contract ConfidentialERC20 is Ownable2Step {
         address to,
         euint256 amount,
         ebool isTransferable
-    ) internal virtual {
-        euint256 transferValue = e.select(
-            isTransferable,
-            amount,
-            e.asEuint256(0)
-        );
-        euint256 newBalanceTo = e.add(balances[to], transferValue);
-        balances[to] = newBalanceTo;
+    ) internal {
+        euint256 newBalanceTo = e.add(balances[to], amount);
         e.allow(newBalanceTo, address(this));
         e.allow(newBalanceTo, to);
+        
+        balances[to] = newBalanceTo;
+        
 
-        euint256 newBalanceFrom = e.sub(balances[from], transferValue);
-        balances[from] = newBalanceFrom;
+        euint256 newBalanceFrom = e.sub(balances[from], amount);
         e.allow(newBalanceFrom, address(this));
         e.allow(newBalanceFrom, from);
 
+        balances[from] = newBalanceFrom;
         emit Transfer(from, to);
     }
 
